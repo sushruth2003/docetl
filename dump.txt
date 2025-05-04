@@ -1,0 +1,908 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.3, pytest-8.3.4, pluggy-1.5.0
+rootdir: /Users/sushruth/docetl
+configfile: pyproject.toml
+plugins: sugar-1.0.0, anyio-4.8.0, xdist-3.6.1
+collected 1 item
+
+tests/test_pres_debate.py [12:21:08] Checking operations...                                                                                                  
+                                                                                                                                   
+           ✓ Operation 'fallacy_resolver' (resolve)                                                                                
+           ✓ Operation 'scan_unnest_fallacies' (scan)                                                                              
+                                                                                                                                   
+           ✓ Operation 'unnest_fallacies' (unnest)                                                                                 
+           ✓ Operation 'scan_extract_fallacies' (scan)                                                                             
+                                                                                                                                   
+           ✓ Operation 'find_logical_fallacies' (map)                                                                              
+           ✓ Operation 'scan_debates' (scan)                                                                                       
+           ✓ All operations passed syntax check                                                                                    
+                                                                                                                                   
+           Pipeline Steps:                                                                                                         
+           ■ extract_fallacies                                                                                                     
+           ■ resolve_similar_fallacies                                                                                             
+           ■ unnest_fallacies                                                                                                      
+           ╭─────────────────────────────────────────── Query Plan ───────────────────────────────────────────╮                    
+           │ resolve_similar_fallacies/fallacy_resolver                                                       │                    
+           │ Type: resolve                                                                                    │                    
+           │ Output Schema:                                                                                   │                    
+           │   fallacy: string                                                                                │                    
+           │   description: string                                                                            │                    
+           │   quote: string                                                                                  │                    
+           │ ▼                                                                                                │                    
+           │   resolve_similar_fallacies/scan_unnest_fallacies                                                │                    
+           │   Type: scan                                                                                     │                    
+           │   ▼                                                                                              │                    
+           │     unnest_fallacies/unnest_fallacies                                                            │                    
+           │     Type: unnest                                                                                 │                    
+           │     ▼                                                                                            │                    
+           │       unnest_fallacies/scan_extract_fallacies                                                    │                    
+           │       Type: scan                                                                                 │                    
+           │       ▼                                                                                          │                    
+           │         extract_fallacies/find_logical_fallacies                                                 │                    
+           │         Type: map                                                                                │                    
+           │         Output Schema:                                                                           │                    
+           │           fallacies: list[{fallacy: string, description: string, quote: string}]                 │                    
+           │         ▼                                                                                        │                    
+           │           extract_fallacies/scan_debates                                                         │                    
+           │           Type: scan                                                                             │                    
+           ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯                    
+                                                                                                                                   
+──────────────────────────────────────────────────────── Loading Datasets ─────────────────────────────────────────────────────────
+           ✓ Loaded dataset 'debates' from example_data/debates/data.json                                                          
+                                                                                                                                   
+─────────────────────────────────────────────────────── Pipeline Execution ────────────────────────────────────────────────────────
+           ✓ extract_fallacies/scan_debates (Cost: $0.00)                                                                          
+Processing find_logical_fallacies (map) on all documents:   0%|          | 0/49 [00:00<?, ?it/s]Processing find_logical_fallacies (map) on all documents: 100%|██████████| 49/49 [00:00<00:00, 620.02it/s]
+           ✓ extract_fallacies/find_logical_fallacies (Cost: $0.00)                                                                
+           ✓ Intermediate saved for operation 'find_logical_fallacies' in step 'extract_fallacies' at                              
+           checkpoints/extract_fallacies/find_logical_fallacies.json                                                               
+           Flushing cache to disk...                                                                                               
+           Cache flushed to disk.                                                                                                  
+           ╭─────── Step Execution: extract_fallacies/boundary ───────╮                                                            
+           │ ✓ extract_fallacies/scan_debates (Cost: $0.00)           │                                                            
+           │ ✓ extract_fallacies/find_logical_fallacies (Cost: $0.00) │                                                            
+           │ Step extract_fallacies/boundary completed. Cost: $0.00   │                                                            
+           ╰──────────────────────────────────────────────────────────╯                                                            
+           ✓ unnest_fallacies/scan_extract_fallacies (Cost: $0.00)                                                                 
+           ✓ unnest_fallacies/unnest_fallacies (Cost: $0.00)                                                                       
+           ✓ Intermediate saved for operation 'unnest_fallacies' in step 'unnest_fallacies' at                                     
+           checkpoints/unnest_fallacies/unnest_fallacies.json                                                                      
+           Flushing cache to disk...                                                                                               
+           Cache flushed to disk.                                                                                                  
+           ╭─────── Step Execution: unnest_fallacies/boundary ───────╮                                                             
+           │ ✓ unnest_fallacies/scan_extract_fallacies (Cost: $0.00) │                                                             
+           │ ✓ unnest_fallacies/unnest_fallacies (Cost: $0.00)       │                                                             
+           │ Step unnest_fallacies/boundary completed. Cost: $0.00   │                                                             
+           ╰─────────────────────────────────────────────────────────╯                                                             
+           ✓ resolve_similar_fallacies/scan_unnest_fallacies (Cost: $0.00)                                                         
+[12:21:32] Comparisons saved by blocking: 0 (0.00%)                                                                                
+[12:21:33] Number of pairs to compare: 60726                                                                                       
+           Using compare batch size: 350                                                                                           
+Processing batches of 350 LLM comparisons:   0%|          | 0/174 [00:00<?, ?it/s]
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:21:53] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:21:54] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+           Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:22:51] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:23:03] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:23:16] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:23:50] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:23:52] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:23:53] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:24:11] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:24:55] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:24:56] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:25:21] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:25:57] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:26:21] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:26:36] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:27:02] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:27:27] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:27:28] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:27:55] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:28:18] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:28:40] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:29:13] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:29:50] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:30:04] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:30:15] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:30:40] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:31:05] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:31:31] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:31:57] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:32:22] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:33:00] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:33:26] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:33:52] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:34:18] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:34:44] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:35:10] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:35:41] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:35:42] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:36:14] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:37:08] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:38:05] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:38:29] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:40:20] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:40:44] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:40:55] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:42:39] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:43:04] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:43:16] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:44:55] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:45:22] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:45:35] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:45:49] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:46:04] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:46:18] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:46:28] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:46:52] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:47:04] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:47:15] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:47:39] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:47:54] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:49:02] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:49:16] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:49:42] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:50:09] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:50:37] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:51:04] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:51:29] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:51:31] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:51:42] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:51:58] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:52:36] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:53:28] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:53:55] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:54:08] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:54:58] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:56:14] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:56:27] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:57:20] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:57:49] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:58:16] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:58:42] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:58:43] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:59:09] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[12:59:49] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:00:43] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:01:09] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:01:11] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:02:12] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:03:32] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+           Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:04:33] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:05:54] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:05:55] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:07:00] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:08:18] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+           Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:09:21] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:10:35] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:10:51] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:11:20] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:11:50] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:12:36] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:13:04] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:13:30] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:14:07] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+           Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:15:03] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:15:30] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:16:23] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:16:24] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:17:52] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:18:42] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:18:43] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:20:20] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:20:48] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:21:01] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:21:02] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:21:15] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:21:42] Rate limit hit. Retrying in 16.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:22:22] Rate limit hit. Retrying in 32.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:23:15] Rate limit hit. Retrying in 64.00 seconds...                                                                            
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:23:29] Rate limit hit. Retrying in 120.00 seconds...                                                                           
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:24:08] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:24:39] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:25:00] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:25:19] Rate limit hit. Retrying in 4.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:25:31] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+[13:25:45] Rate limit hit. Retrying in 8.00 seconds...                                                                             
+Processing batches of 350 LLM comparisons:   0%|          | 0/174 [1:04:50<?, ?it/s]
+F
+
+=================================== FAILURES ===================================
+_______________________ test_pipeline_map_unnest_resolve _______________________
+
+map_config = MapOperation(name='find_logical_fallacies', type='map', skip_on_error=False, output={'schema': {'fallacies': 'list[{fa...lity=False, batch_size=None, clustering_method=None, batch_prompt=None, litellm_completion_kwargs={}, pdf_url_key=None)
+unnest_config = UnnestOperation(name='unnest_fallacies', type='unnest', skip_on_error=False, unnest_key='fallacies', keep_empty=None, expand_fields=None, recursive=None, depth=None)
+resolve_config = ResolveOperation(name='fallacy_resolver', type='resolve', skip_on_error=False, comparison_prompt='Compare the followin...omparisons=None, optimize=None, timeout=None, litellm_completion_kwargs={}, enable_observability=False, batch_size=100)
+temp_input_file = 'example_data/debates/data.json'
+temp_output_file = 'logical_fallacy_opt.json'
+temp_intermediate_dir = '/var/folders/qn/v4dgmz4j6pb7zxtdwbm11dsw0000gn/T/tmpqoh8damf'
+
+    def test_pipeline_map_unnest_resolve(
+        map_config, unnest_config, resolve_config, temp_input_file, temp_output_file, temp_intermediate_dir
+    ):
+        # Create unnest operation config
+        # config_dict = {"unnest_key": "fallacy"}
+    
+    
+        pipeline = Pipeline(
+            name="debate_analysis_pipeline",
+            datasets={"debates": Dataset(type="file", path=temp_input_file)},
+            operations=[map_config, unnest_config, resolve_config],
+            steps=[
+                PipelineStep(
+                    name="extract_fallacies",
+                    input="debates",
+                    operations=["find_logical_fallacies"]
+                ),
+                PipelineStep(
+                    name="unnest_fallacies",
+                    input="extract_fallacies",
+                    operations=["unnest_fallacies"]
+                ),
+                PipelineStep(
+                    name="resolve_similar_fallacies",
+                    input="unnest_fallacies",
+                    operations=["fallacy_resolver"]
+                )
+            ],
+            output=PipelineOutput(
+                type="file",
+                path="logical_fallacy_analysis.json",
+                intermediate_dir="checkpoints"
+            ),
+            default_model="gpt-4o-mini",
+            rate_limits={"llm_call": [{"count": 1, "per": 1, "unit": "second"}, {"count": 10, "per": 1, "unit": "minute"}]}  # Limit LLM calls to 1 per second or 10 per minute
+        )
+    
+>       cost = pipeline.run(max_threads=4)
+
+tests/test_pres_debate.py:253: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+docetl/api.py:244: in run
+    result = runner.load_run_save()
+docetl/runner.py:447: in load_run_save
+    output, _, _ = self.last_op_container.next()
+docetl/containers.py:587: in next
+    output_data, step_cost, step_logs = self.children[0].next(
+docetl/containers.py:520: in next
+    output_data = self.runner._run_operation(
+docetl/runner.py:716: in _run_operation
+    output_data, cost = operation_instance.execute(input_data)
+docetl/operations/resolve.py:525: in execute
+    is_match_result, cost, prompt = future.result()
+/opt/homebrew/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+/opt/homebrew/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+/opt/homebrew/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/thread.py:58: in run
+    result = self.fn(*self.args, **self.kwargs)
+docetl/operations/resolve.py:79: in compare_pair
+    response = self.runner.api.call_llm(
+docetl/operations/utils/api.py:392: in call_llm
+    output = timeout(timeout_seconds)(self._cached_call_llm)(
+docetl/operations/utils/llm.py:62: in wrapper
+    raise result[0]
+docetl/operations/utils/llm.py:54: in target
+    result[0] = func(*args, **kwargs)
+docetl/operations/utils/api.py:158: in _cached_call_llm
+    response = self._call_llm_with_cache(
+docetl/operations/utils/api.py:587: in _call_llm_with_cache
+    self.runner.rate_limiter.try_acquire("llm_call", weight=1)
+../Library/Caches/pypoetry/virtualenvs/docetl-dMmuDmDw-py3.12/lib/python3.12/site-packages/pyrate_limiter/limiter.py:315: in try_acquire
+    result = self.handle_bucket_put(bucket, item)
+../Library/Caches/pypoetry/virtualenvs/docetl-dMmuDmDw-py3.12/lib/python3.12/site-packages/pyrate_limiter/limiter.py:263: in handle_bucket_put
+    return _handle_result(acquire)  # type: ignore
+../Library/Caches/pypoetry/virtualenvs/docetl-dMmuDmDw-py3.12/lib/python3.12/site-packages/pyrate_limiter/limiter.py:243: in _handle_result
+    return self.delay_or_raise(bucket, item)
+../Library/Caches/pypoetry/virtualenvs/docetl-dMmuDmDw-py3.12/lib/python3.12/site-packages/pyrate_limiter/limiter.py:232: in delay_or_raise
+    return _handle_reacquire(re_acquire)
+../Library/Caches/pypoetry/virtualenvs/docetl-dMmuDmDw-py3.12/lib/python3.12/site-packages/pyrate_limiter/limiter.py:172: in _handle_reacquire
+    self._raise_bucket_full_if_necessary(bucket, item)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyrate_limiter.limiter.Limiter object at 0x123a561b0>
+bucket = <pyrate_limiter.buckets.in_memory_bucket.InMemoryBucket object at 0x122bf8650>
+item = <pyrate_limiter.abstracts.rate.RateItem object at 0x12d1a63c0>
+
+    def _raise_bucket_full_if_necessary(
+        self,
+        bucket: AbstractBucket,
+        item: RateItem,
+    ):
+        if self.raise_when_fail:
+            assert bucket.failing_rate is not None  # NOTE: silence mypy
+>           raise BucketFullException(item, bucket.failing_rate)
+E           pyrate_limiter.exceptions.BucketFullException: Bucket for item=llm_call with Rate limit=10/1.0m is already full
+
+../Library/Caches/pypoetry/virtualenvs/docetl-dMmuDmDw-py3.12/lib/python3.12/site-packages/pyrate_limiter/limiter.py:132: BucketFullException
+------------------------------ Captured log call -------------------------------
+ERROR    pyrate_limiter:limiter.py:166 
+                Re-acquiring with delay expected to be successful,
+                if it failed then either clock or bucket is probably unstable
+=========================== short test summary info ============================
+FAILED tests/test_pres_debate.py::test_pipeline_map_unnest_resolve - pyrate_l...
+======================== 1 failed in 3916.84s (1:05:16) ========================
